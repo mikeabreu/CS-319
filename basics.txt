@@ -1,0 +1,41 @@
+Git
+	git add .
+	git commit -m "msg"
+	git config -l
+	git config --global <variable> <value>
+	git remote <add|rm|rename> <name> <url>
+	git push <options> <remote_name> <branch>
+	git pull <remote_name>
+	git status
+
+GitHub
+	Created an account
+	Saw what a repo looks like
+	Cloned a repo
+	Pushed to a repo
+	Pulled from a repo
+
+MAMPP
+	Web Server - (Apache HTTP)
+		http://localhost:8888/[.../htdocs/<project_name>]
+	PHP Interpreter
+	MariaDB (MySQL Database)
+		http://localhost:8888/phpmyadmin
+
+Project
+	Functions
+		includes/functions/<name>
+	Layouts
+		includes/templates/<name>
+	HTML+CSS+JS
+		Materialize
+
+Database Management
+	Creating a Database
+	Creating a Table
+	Modifying a Table's Structure
+	Viewing a Table's Content
+	DB User Privilges
+	Connecting a DB to PHP
+		includes/functions/mysqli_connect.php
+
