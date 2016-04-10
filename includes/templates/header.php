@@ -9,13 +9,17 @@ if (!isset($container_type)) {
 if (isset($valign) && $valign) {
     $container_type = 'container';
 }
+if (!isset($page_title) || empty($page_title)) {
+    $page_title = "Title";
+}
+
 
 ?>
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
-    <title>Homepage | G3</title>
+    <title><?php echo $page_title; ?> | G3</title>
     <!-- === Fonts === -->
     <!-- Materialize Font -->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

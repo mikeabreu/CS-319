@@ -1,10 +1,10 @@
 <?php # Script 3.4 - index.php
 include_once('includes/functions/session.php');
-include('includes/functions/functions.php');
+include_once('includes/functions/functions.php');
 confirm_logged_in();
 
 $page_title = 'Welcome to this Site!';
-include('./includes/templates/header.php');
+include_once('includes/templates/header.php');
 ?>
 
 <div class="row">
@@ -27,5 +27,5 @@ include('./includes/templates/header.php');
 </div>
 
 <?php
-include('./includes/templates/footer.php');
+include_once('includes/templates/footer.php');
 ?>
