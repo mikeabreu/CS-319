@@ -18,7 +18,7 @@ include('includes/templates/header.php');
             <h1 class="center-align">News Page</h1>
         </div>
     </div>
-
+<h1>test</h1>
 </div>
 
 <?php
