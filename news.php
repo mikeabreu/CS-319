@@ -1,4 +1,7 @@
 <?php
+
+// comment
+
 include('includes/functions/session.php');
 include('includes/functions/functions.php');
 confirm_logged_in();
