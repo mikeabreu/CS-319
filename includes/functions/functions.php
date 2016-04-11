@@ -17,7 +17,7 @@ function logged_in() {
 }
 
 function redirect($url) {
-    if (is_string($url))
-        header('Location: '.$url);
+    $abs_url = absolute_url($url);
+    header('Location: '.$abs_url);
     exit;
 }
