@@ -12,7 +12,9 @@ if (isset($valign) && $valign) {
 if (!isset($page_title) || empty($page_title)) {
     $page_title = "Title";
 }
-
+if (!isset($wrapper_class) || empty($wrapper_class)) {
+    $wrapper_class = '';
+}
 
 ?>
 <html lang="en">
@@ -71,4 +73,4 @@ if (!isset($page_title) || empty($page_title)) {
 
     <!-- | Page Content (Main) | -->
     <main id="page-content" class="<?php if (isset($valign) && $valign) { echo 'valign-wrapper'; } ?>">
-        <section class="<?php echo $container_type; ?> <?php if (isset($valign) && $valign) { echo 'valign'; } ?> grey lighten-5 z-depth-3">
+        <section class="<?php echo $container_type . ' ' . $wrapper_class; ?> <?php if (isset($valign) && $valign) { echo 'valign'; } ?> grey lighten-5 z-depth-3">
