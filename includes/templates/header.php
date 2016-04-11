@@ -26,7 +26,7 @@ if (!isset($page_title) || empty($page_title)) {
 
     <!-- === Stylesheets === -->
     <!-- Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
     <!-- G3 CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
@@ -57,8 +57,8 @@ if (!isset($page_title) || empty($page_title)) {
                             </ul>
 
                             <!-- Mobile Menu Links -->
-                            <ul id="nav-mobile" class="side-nav">
-                                <?php include("includes/templates/partials/nav_links.php"); ?>
+                            <ul id="nav-mobile" class="side-nav <?php echo G_COLOR . ' ' . G_SHADE; ?>">
+                                <?php include("includes/templates/partials/mobile_links.php"); ?>
                             </ul>
                             <!-- Mobile Menu Button -->
                             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
