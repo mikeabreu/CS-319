@@ -1,8 +1,4 @@
 <?php
-include_once('config.php');
-//include('includes/session.php');
-//echo print_r($_SESSION);
-
 if (!isset($container_type)) {
     $container_type = 'container-full';
 }
@@ -43,34 +39,39 @@ if (!isset($wrapper_class) || empty($wrapper_class)) {
 </head>
 
 <body role="document">
-    <!-- | Header | -->
-    <header id="header" class="">
-        <!-- | Navigation | -->
-        <div class="navbar-fixed">
-            <nav class="<?php echo G_COLOR; ?> <?php echo G_SHADE; ?>" role="navigation">
-                <div class="nav-wrapper container-full">
-                    <div class="row">
-                        <div class="col s10 offset-s1"><!-- Logo -->
-                            <a href="index.php" id="logo-container" class="brand-logo">G3</a>
+<!-- | Header | -->
+<header id="header" class="">
+    <!-- | Navigation | -->
+    <div class="navbar-fixed">
+        <nav class="<?php echo G_COLOR; ?> <?php echo G_SHADE; ?>" role="navigation">
+            <div class="nav-wrapper container-full">
+                <div class="row">
+                    <div class="col s10 offset-s1"><!-- Logo -->
+                        <a href="index.php" id="logo-container" class="brand-logo">G3</a>
 
-                            <!-- Menu Links -->
-                            <ul class="right hide-on-med-and-down">
-                                <?php include("includes/templates/partials/nav_links.php"); ?>
-                            </ul>
+                        <!-- Menu Links -->
+                        <ul class="right hide-on-med-and-down">
+                            <?php include( TEMPLATE_PATH . DS . "partials" . DS . "nav_links.php"); ?>
+                        </ul>
 
-                            <!-- Mobile Menu Links -->
-                            <ul id="nav-mobile" class="side-nav <?php echo G_COLOR . ' ' . G_SHADE; ?>">
-                                <?php include("includes/templates/partials/mobile_links.php"); ?>
-                            </ul>
-                            <!-- Mobile Menu Button -->
-                            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-                        </div>
+                        <!-- Mobile Menu Links -->
+                        <ul id="nav-mobile" class="side-nav <?php echo G_COLOR . ' ' . G_SHADE; ?>">
+                            <?php include(TEMPLATE_PATH . DS . "partials" . DS . "mobile_links.php"); ?>
+                        </ul>
+                        <!-- Mobile Menu Button -->
+                        <a href="#" data-activates="nav-mobile" class="button-collapse"><i
+                                class="material-icons">menu</i></a>
                     </div>
                 </div>
-            </nav>
-        </div>
-    </header><!-- /header -->
+            </div>
+        </nav>
+    </div>
+</header><!-- /header -->
 
-    <!-- | Page Content (Main) | -->
-    <main id="page-content" class="<?php if (isset($valign) && $valign) { echo 'valign-wrapper'; } ?>">
-        <section class="<?php echo $container_type . ' ' . $wrapper_class; ?> <?php if (isset($valign) && $valign) { echo 'valign'; } ?> grey lighten-5 z-depth-3">
+<!-- | Page Content (Main) | -->
+<main id="page-content" class="<?php if (isset($valign) && $valign) {
+    echo 'valign-wrapper';
+} ?>">
+    <section class="<?php echo $container_type . ' ' . $wrapper_class; ?> <?php if (isset($valign) && $valign) {
+        echo 'valign';
+    } ?> grey lighten-5 z-depth-3">
