@@ -1,0 +1,125 @@
+/*  Go Game Go
+ *
+ *  File: styles.css
+ *
+ *  Description:
+ */
+
+/*
+ *  Colors:
+ *
+ *  green: RGB(67, 160, 71)
+ *  light green: rgb(85, 139, 47)
+ *  light-blue: rgb(0, 176, 255)
+ */
+
+* {
+
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+input:focus:not([type]):not([readonly]),
+input[type="text"]:focus:not([readonly]),
+input[type="password"]:focus:not([readonly]),
+input[type="email"]:focus:not([readonly]),
+input[type="url"]:focus:not([readonly]),
+input[type="time"]:focus:not([readonly]),
+input[type="date"]:focus:not([readonly]),
+input[type="datetime-local"]:focus:not([readonly]),
+input[type="tel"]:focus:not([readonly]),
+input[type="number"]:focus:not([readonly]),
+input[type="search"]:focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid rgb(85, 139, 47);
+    box-shadow: 0 1px 0 0 rgb(85, 139, 47);
+}
+
+input:focus:not([type]):not([readonly]) + label,
+input[type="text"]:focus:not([readonly]) + label,
+input[type="password"]:focus:not([readonly]) + label,
+input[type="email"]:focus:not([readonly]) + label,
+input[type="url"]:focus:not([readonly]) + label,
+input[type="time"]:focus:not([readonly]) + label,
+input[type="date"]:focus:not([readonly]) + label,
+input[type="datetime-local"]:focus:not([readonly]) + label,
+input[type="tel"]:focus:not([readonly]) + label,
+input[type="number"]:focus:not([readonly]) + label,
+input[type="search"]:focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: rgb(85, 139, 47);
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: rgb(85, 139, 47);
+}
+
+[type="checkbox"]:checked + label::before {
+    border-right: 2px solid rgb(85, 139, 47);
+    border-bottom: 2px solid rgb(85, 139, 47);
+}
+
+.parallax-container {
+    height: 100px;
+}
+
+.navtext {
+    padding: 0 15;
+}
+
+footer.page-footer {
+    margin-top: 0;
+}
+
+#page-content {
+    background: url('../images/header2.png');
+}
+
+#page-content > section {
+    margin: 20px auto;
+}
+
+form label {
+    color: rgb(85, 139, 47) !important;
+}
+
+::-webkit-input-placeholder {
+    color: rgb(85, 139, 47);
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: rgb(85, 139, 47);
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: rgb(85, 139, 47);
+}
+
+:-ms-input-placeholder {
+    color: rgb(85, 139, 47);
+}
+
+/*#page-content > div:first-child {*/
+    /*height: 100%;*/
+/*}*/
+
+.footer-copyright {
+    margin-bottom: 20px;
+}
+
+.side-nav li:hover, .side-nav li.active {
+    background-color: #33691e !important;
+}
+
+.search-view {
+    padding: 20px 0 !important;
+    min-height: 300px;
+}

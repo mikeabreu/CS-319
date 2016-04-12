@@ -1,8 +1,4 @@
-<?php
-
-
-?>
-<?php if (isset($logged_in) && $logged_in) { ?>
+<?php if ($session->is_logged_in()) { ?>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="catalog.php">Game Catalog</a></li>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="reviews.php">Reviews</a></li>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="news.php">News</a></li>
@@ -13,8 +9,8 @@
 
 <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="support.php">Support</a></li>
 
-<?php if (isset($logged_in) && $logged_in) { ?>
+<?php if ($session->is_logged_in()) { ?>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="search.php"><i class="material-icons">search</i></a></li>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="logout.php">Logout</a></li>
-    <li><span class="navtext <?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>"><?php echo "Hello, " . $_SESSION['first_name'] ?></span></li>
+    <li><span class="navtext <?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>"></span></li>
 <?php } // End if ?>
