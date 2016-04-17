@@ -1,4 +1,4 @@
-<?php # Script 3.4 - index.php
+<?php
 require_once('../includes/initialize.php');
 if (!$session->is_logged_in()) {
     redirect_to("login.php");
@@ -31,6 +31,4 @@ include_once(TEMPLATE_PATH . DS . 'header.php');
 
     </div>
 
-<?php
-include_once(TEMPLATE_PATH . DS . 'footer.php');
-?>
+<?php include_once(TEMPLATE_PATH . DS . 'footer.php'); ?>

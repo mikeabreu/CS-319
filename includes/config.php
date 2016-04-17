@@ -1,10 +1,10 @@
 <?php
 
 // Set the database access information as constants:
-DEFINE('DB_USER', 'gogamego');
-DEFINE('DB_PASS', 'gogamego');
+DEFINE('DB_USER', 'cs319');
+DEFINE('DB_PASS', 'cs319');
 DEFINE('DB_HOST', 'localhost');
-DEFINE('DB_NAME', 'gogamego');
+DEFINE('DB_NAME', 'cs319');
 
 
 // Background Colors

@@ -44,6 +44,7 @@ class MySQLDatabase
     # Query to the DB
     public function query($sql)
     {
+        global $log;
         $this->last_query = $sql;
         $result = mysqli_query($this->connection, $sql);
         $this->confirm_query($result);

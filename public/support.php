@@ -1,7 +1,8 @@
 <?php
-include('includes/functions/session.php');
+require_once "../includes/initialize.php";
+
 $page_title = 'Support';
-include('includes/templates/header.php');
+include(TEMPLATE_PATH . DS . 'header.php');
 
 ?>
 
@@ -16,5 +17,5 @@ include('includes/templates/header.php');
 </div>
 
 <?php
-include('includes/templates/footer.php');
+include(TEMPLATE_PATH . DS . 'footer.php');
 ?>

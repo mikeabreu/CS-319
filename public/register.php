@@ -64,6 +64,7 @@ if (isset($_POST['submitted'])) {
             $user->password     =   $user->password_encrypt($_POST['password']);
             $user->first_name   =   $db->escape_value($_POST['first_name']);
             $user->last_name    =   $db->escape_value($_POST['last_name']);
+            $user->email        =   $db->escape_value($_POST['email']);
             User::save($user);
             $message = "User was created!";
             $session->login($user);

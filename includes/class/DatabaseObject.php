@@ -41,10 +41,12 @@ class DatabaseObject
             $this->id = $db->insert_id();
             $log_message .= ", id='" . $this->id . "', by username: " . $_SESSION['username'];
             $log->log_action("CREATE SUCCESS", $log_message);
+            $log->log_action("SQL Query (SUCCESS)", $sql);
             return true;
         } else {
             $log_message .= ", by username: " . $_SESSION['username'];
             $log->log_action("CREATE FAILED", $log_message);
+            $log->log_action("SQL Query (Failure)", $sql);
             return false;
         }
     }
@@ -175,6 +177,7 @@ class DatabaseObject
                 $attributes[$field] = $this->$field;
             }
         }
+        echo 'Attributes: ' . print_r($attributes);
         return $attributes;
     }
 
@@ -188,6 +191,7 @@ class DatabaseObject
         foreach ($this->attributes() as $key => $value) {
             $clean_attributes[$key] = $db->escape_value($value);
         }
+        echo 'Clean Attributes: ' . print_r($clean_attributes);
         return $clean_attributes;
     }
 }
