@@ -17,32 +17,6 @@ if (isset($_POST['submitted'])) {
 
     $errors = array(); // Initialize an error array.
 
-    // Check for user type id:
-    //if (empty($_POST["platform_type"])) {
-      //  $errors[] = 'You forgot to select a Platform type.';
-    //}
-
-    // Check for a platform:
-    if (empty($_POST['platform_type'])) {
-        $errors[] = 'You forgot to select your platform. ie.: XBox, PS4, PC?';
-    } else {
-        $pt = mysqli_real_escape_string($dbc, trim($_POST['platform_type']));
-    }
-
-    // Check for a game:
-    if (empty($_POST['game_id_name'])) {
-        $errors[] = 'You forgot to select a game.';
-    } else {
-        $gn = mysqli_real_escape_string($dbc, trim($_POST['game_id_name']));
-    }
-
-    // Check for a subject:
-    if (empty($_POST['headline_in_news_id'])) {
-        $errors[] = 'You forgot to enter the subject of the news of today.';
-    } else {
-        $hl = mysqli_real_escape_string($dbc, trim($_POST['headline_in_news_id']));
-    }
-
     // Check for a message:
     if (empty($_POST['msg_in_news_id'])) {
         $errors[] = 'You forgot to enter the news content of today.';
@@ -51,11 +25,11 @@ if (isset($_POST['submitted'])) {
     }
 
     if (empty($errors)) { // If everything's OK.
-        $t = ($_POST['platform_type'] && $_POST['game_id_name'] && $_POST['headline_in_news_id'] && $_POST['msg_in_news_id']);
+        $t = ($_POST['msg_in_news_id']);
 
 
         // Make the query:
-        $q = "INSERT INTO News (platform_type, game_id_name, headline_in_news_id, msg_in_news_id) VALUES ($pt, '$gn', '$hl', '$msgnews' )";
+        $q = "INSERT INTO News (msg_in_news_id) VALUES ($pt, '$gn', '$hl', '$msgnews' )";
         $r = @mysqli_query($dbc, $q); // Run the query.
         if ($r) { // If it ran OK.
 
@@ -122,29 +96,110 @@ if ($num > 0) { // If it ran OK, display the records.
         $types[] = $row;
     }
 
-    mysqli_free_result($result); // Free up the resources.	
+    mysqli_free_result($result); // Free up the resources.
 }
 
 mysqli_close($dbc); // Close the database connection.
 ?>
 
-<div class="row valign">
-    <div class="page-header">
-        <div class="row center-align">
-            <?php if (isset($logged_in) && $logged_in) { ?>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsadmincreate.php">Create a Post</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsedit.php">Edit/Delete a Post</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="news.php">Read News</a></li>
-            <?php } else { // Start else?>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="login.php">Login</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="register.php">Register</a></li>
-            <?php } // End if..else ?>
 
-            <div class="page-header">
-                <h4>News - Read Page</h4>
+
+<div class="row valign">
+
+        <div class="page-header">
+            <div class="row center-align">
+                <?php if (isset($logged_in) && $logged_in) { ?>
+                    <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsadmincreate.php">Create a Post</a></li>
+                    <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsedit.php">Edit/Delete a Post</a></li>
+                    <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="news.php">Read News</a></li>
+                <?php } else { // Start else?>
+                    <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="login.php">Login</a></li>
+                    <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="register.php">Register</a></li>
+                <?php } // End if..else ?>
+            <h4>News - Select a Post to Edit</h4>
+        </div>
+        </div>
+
+    <form class="form" role="form" action="newsedit.php" method="post">
+
+        <div class="row">
+            <div class="input-field col s2 offset-s2 l6 offset-l3 ">
+                <?php
+                    //Connect to the database again
+                $dbc = mysqli_connect('localhost','cs319','cs319','cs319');
+                //require_once('includes/functions/mysqli_connect.php');
+                //$types = array();
+                //Query the database
+
+                // Performing SQL query
+                $q1 = "SELECT news_id, headline_in_news_id, data_time FROM News	WHERE 1";
+                $result = mysqli_query($dbc, $q1); // Run the query.
+                //$data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+                //Count the returned rows
+                $num = mysqli_num_rows($result);
+                if($num > 0) {
+                //Turn the results into an array
+                    while ($row = mysqli_fetch_row($result)) {
+
+                        //echo "<pre>.$data[news_id]</pre>";
+
+                        $types[] = $row;
+                        //$news_id = $row['news_id'];   
+                        //$data_time = $row['data_time'];
+                        //$headline_in_news_id = $row['headline_in_news_id'];
+                        echo "News ID: ".$data['news_id']."\n";
+                        echo "Date Created: ".$data['data_time']."\n";
+                        echo "Subject: ".$data['headline_in_news_id']."\n";
+                    }
+                }
+                else{
+                    echo "No return";
+                }
+
+                mysqli_close($dbc); // Close the database connection.
+
+                ?>
+                    <form action="show_id">
+                        <p>
+                            <input name="group1" type="radio" id="test1" />
+                            <label for="test1">Red</label>
+                        </p>
+                        <p>
+                            <input name="group1" type="radio" id="test2" />
+                            <label for="test2">Yellow</label>
+                        </p>
+                        <p>
+                            <input class="with-gap" name="group1" type="radio" id="test3"  />
+                            <label for="test3">Green</label>
+                        </p>
+                        <p>
+                            <input name="group1" type="radio" id="test4" disabled="disabled" />
+                            <label for="test4">Brown</label>
+                        </p>
+                    </form>
+
+                    <?php
+                    foreach ($types as $type) {
+                        echo "<option value=\"" . $type['platform_type'] . "\">" . $type['platform_type'] . "</option>\n";
+                    }
+                    ?>
+                <br></br>
             </div>
         </div>
 
+        <div class="row center-align">
+            <div class="input-field col s2 offset-s2 l6 offset-l3">
+                <button type="submit" name="submit" class="btn waves-effect waves-light green">Submit
+                    <!--<i class="material-icons right">send</i>-->
+                </button>
+                <input type="hidden" name="submitted" value="TRUE"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>
 
 
 
@@ -191,7 +246,7 @@ mysqli_close($dbc); // Close the database connection.
 <div class="row">
     <div class="col s12">
 <form action="news.php">
-    
+
     <div class="input-field col s12">
         <select>
             <option value="" disabled selected>Choose the Game Type</option>

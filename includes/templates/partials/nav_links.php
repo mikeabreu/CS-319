@@ -13,7 +13,7 @@
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="register.php">Register</a></li>
 <?php } // End if..else ?>
 
-<li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="support.php">Support</a></li>
+<!--<li><a class<php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="support.php">Support</a></li>-->
 
 <?php if (isset($logged_in) && $logged_in) { ?>
     <li><a class="<?php echo G_TEXT_COLOR . " " . G_TEXT_SHADE;?>" href="search.php"><i class="material-icons">search</i></a></li>

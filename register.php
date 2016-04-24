@@ -8,7 +8,7 @@ include('includes/helpers/Formatter.php');
 $options["center"] = true;
 $options["valign"] = true;
 
-require_once('includes/functions/mysqli_connect.php'); // Connect to the db.
+require_once        ('includes/functions/mysqli_connect.php'); // Connect to the db.
 
 // Check if the form has been submitted:
 if (isset($_POST['submitted'])) {
@@ -144,7 +144,7 @@ mysqli_close($dbc); // Close the database connection.
                     <option value="" disabled selected>Choose your option</option>
                     <?php
                     foreach ($types as $type) {
-                        echo "<option value=\"" . $type['user_type_id'] . "\">" . $type['type_name'] . "</option>\n";
+                        echo "<option value=\"" . $type['userx_type_id'] . "\">" . $type['type_name'] . "</option>\n";
                     }
                     ?>
                 </select>

@@ -128,23 +128,97 @@ if ($num > 0) { // If it ran OK, display the records.
 mysqli_close($dbc); // Close the database connection.
 ?>
 
+
+
 <div class="row valign">
     <div class="page-header">
         <div class="row center-align">
-            <?php if (isset($logged_in) && $logged_in) { ?>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsadmincreate.php">Create a Post</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsedit.php">Edit/Delete a Post</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="news.php">Read News</a></li>
-            <?php } else { // Start else?>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="login.php">Login</a></li>
-                <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="register.php">Register</a></li>
-            <?php } // End if..else ?>
+        <?php if (isset($logged_in) && $logged_in) { ?>
+            <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsadmincreate.php">Create a Post</a></li>
+            <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="newsedit.php">Edit/Delete a Post</a></li>
+            <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="news.php">Read News</a></li>
+        <?php } else { // Start else?>
+            <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="login.php">Login</a></li>
+            <li><a class="<?php echo X_TEXT_COLOR . " " . X_TEXT_SHADE;?>" href="register.php">Register</a></li>
+        <?php } // End if..else ?>
 
-            <div class="page-header">
-                <h4>News - Read Page</h4>
+        <div class="page-header">
+            <h4>News - Create a Post</h4>
+        </div>
+    </div>
+
+    <form class="form" role="form" action="news.php" method="post">
+        <div class="row">
+            <div class="input-field col s8 offset-s2 l6 offset-l3 ">
+                <select name="platform_type">
+                    <option value="" disabled selected>Choose the Platform</option>
+                    <?php
+                    foreach ($types as $type) {
+                        echo "<option value=\"" . $type['platform_type'] . "\">" . $type['platform_type'] . "</option>\n";
+                    }
+                    ?>
+                    <option value="1">XBox One</option>
+                    <option value="2">PS4</option>
+                    <option value="3">PC</option>
+                </select>
+                <label>Platform Type</label>
             </div>
         </div>
 
+        <div class="input-field col s8 offset-s2 l6 offset-l3 ">
+            <select name="game_id_name">
+                <!-- Need to tie this to the game list directly so it shows up automatically-->
+            <option value="" disabled selected>Choose the Game</option>
+            <?php
+            foreach ($types as $type) {
+                echo "<option value=\"" . $type['game_id_name'] . "\">" . $type['game_id_name'] . "</option>\n";
+            }
+            ?>
+            <option value="1">Call Of Duty</option>
+            <option value="2">Formula One</option>
+            <option value="3">FallOut 4</option>
+            </select>
+            <label>Choose the Game</label>
+        </div>
+
+        <div class="row center-align">
+            <div class="input-field col s8 offset-s2 l6 offset-l3">
+                <textarea id="headline_in_news_id" class="materialize-textarea" required name="headline_in_news_id" maxlength="500"
+                          value="<?php if (isset($_POST['headline_in_news_id'])) echo $_POST['headline_in_news_id']; ?>"></textarea>
+                <label>Subject</label>
+            </div>
+
+
+            <!--<div class="row center-align">
+            <div class="input-field col s8 offset-s2 l6 offset-l3">
+                <input type="text" class="" required autofocus name="headline" maxlength="100" placeholder="Subject"
+                       value="
+                       <php if (isset($_POST['headline'])) echo $_POST['headline']; ?>"/>
+            </div>-->
+
+        </div>
+
+        <div class="row center-align">
+            <div class="input-field col s8 offset-s2 l6 offset-l3">
+                <textarea id="textarea1" class="materialize-textarea" required name="msg_in_news_id" maxlength="3000"
+                          value="<?php if (isset($_POST['msg_in_news_id'])) echo $_POST['msg_in_news_id']; ?>"></textarea>
+                <label>News</label>
+            </div>
+
+        </div>
+
+        <div class="row center-align">
+            <div class="input-field col s8 offset-s2 l6 offset-l3">
+                <button type="submit" name="submit" class="btn waves-effect waves-light green">Submit
+                <!--<i class="material-icons right">send</i>-->
+                </button>
+                <input type="hidden" name="submitted" value="TRUE"/>
+            </div>
+        </div>
+
+    </form>
+
+</div>
 
 
 
