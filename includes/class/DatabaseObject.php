@@ -18,7 +18,7 @@ class DatabaseObject
         return (isset($object->id)) ? $object->update() : $object->create();
     }
 
-    #	Create a user
+    #	Create a object
     public function create()
     {
         global $db;
