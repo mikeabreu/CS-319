@@ -12,7 +12,9 @@ if (isset($valign) && $valign) {
 if (!isset($page_title) || empty($page_title)) {
     $page_title = "Title";
 }
-
+if (!isset($wrapper_class) || empty($wrapper_class)) {
+    $wrapper_class = '';
+}
 
 ?>
 <html lang="en">
@@ -26,7 +28,7 @@ if (!isset($page_title) || empty($page_title)) {
 
     <!-- === Stylesheets === -->
     <!-- Materialize CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/css/materialize.min.css">
     <!-- G3 CSS -->
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
@@ -57,8 +59,8 @@ if (!isset($page_title) || empty($page_title)) {
                             </ul>
 
                             <!-- Mobile Menu Links -->
-                            <ul id="nav-mobile" class="side-nav">
-                                <?php include("includes/templates/partials/nav_links.php"); ?>
+                            <ul id="nav-mobile" class="side-nav <?php echo G_COLOR . ' ' . G_SHADE; ?>">
+                                <?php include("includes/templates/partials/mobile_links.php"); ?>
                             </ul>
                             <!-- Mobile Menu Button -->
                             <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -71,4 +73,4 @@ if (!isset($page_title) || empty($page_title)) {
 
     <!-- | Page Content (Main) | -->
     <main id="page-content" class="<?php if (isset($valign) && $valign) { echo 'valign-wrapper'; } ?>">
-        <section class="<?php echo $container_type; ?> <?php if (isset($valign) && $valign) { echo 'valign'; } ?> grey lighten-5 z-depth-3">
+        <section class="<?php echo $container_type . ' ' . $wrapper_class; ?> <?php if (isset($valign) && $valign) { echo 'valign'; } ?> grey lighten-5 z-depth-3">

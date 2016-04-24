@@ -110,3 +110,16 @@ form label {
 /*#page-content > div:first-child {*/
     /*height: 100%;*/
 /*}*/
+
+.footer-copyright {
+    margin-bottom: 20px;
+}
+
+.side-nav li:hover, .side-nav li.active {
+    background-color: #33691e !important;
+}
+
+.search-view {
+    padding: 20px 0 !important;
+    min-height: 300px;
+}

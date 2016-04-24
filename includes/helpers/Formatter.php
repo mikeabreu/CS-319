@@ -9,13 +9,13 @@ class Formatter
 
     public function format($html, $options=null)
     {
-        $center = $options["center"] ? 'center-align' : '';
-        $valign = $options["valign"] ? 'valign' : '';
-        $card_color = $options["card_color"] ? $options["card_color"] : '';
-        $card_color_extra = $options["card_color_extra"] ? $options["card_color_extra"] : '';
-        $col = $options["col"] ? $options["col"] : 's12';
+        $center = key_exists("center", $options) ? 'center-align' : '';
+        $valign = key_exists("valign", $options) ? 'valign' : '';
+        $card_color = key_exists("card_color", $options) ? $options["card_color"] : '';
+        $card_color_extra = key_exists("card_color_extra", $options) ? $options["card_color_extra"] : '';
+        $col = key_exists("col", $options) ? $options["col"] : 's12';
 
-        if ($options["card"]) {
+        if (key_exists("card", $options)) {
             $output = <<<EOF
         <div class="row $center $valign">
             <div class="col $col">

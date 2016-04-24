@@ -1,7 +1,5 @@
 <?php
 
-// Load constants for color classes
-//include('config.php');
 
 ?>
 <?php if (isset($logged_in) && $logged_in) { ?>
