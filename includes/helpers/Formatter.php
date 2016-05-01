@@ -40,3 +40,4 @@ EOF;
 }
 
 $Formatter = new Formatter();
+$format =& $Formatter; // alias for Formatter object
