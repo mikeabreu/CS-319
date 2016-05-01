@@ -146,86 +146,47 @@ mysqli_close($dbc); // Close the database connection.
         </div>
 
 
+        <div class="row">
+            <div class="input-field col s12 offset-s2 l12 offset-l1 ">
+                <?php
+                $dbc = mysqli_connect('localhost','cs319','cs319','cs319');
+                if(!$dbc){
+                    die("Cannot connect:" . mysqli_error());
+                }
+                mysqli_select_db($dbc,"cs319");
+                // Make the query:
+                //need to pull the game ID from the Catalog's DB automatically into the game_id_name
+                //also need to make each line 'refereable' or 'clickable' to go to that specific 'news_id'
+                $q1 = "SELECT game_id_name, headline_in_news_id, msg_in_news_id FROM News ORDER BY news_id DESC";
+                $result = mysqli_query($dbc, $q1); // Run the query.
+                echo "<table border=1>                                                                                                        
+                   <tr>                                                                                                                               
+                   <th>Game</th>                                                                                                          
+                   <th>Subject</th>  
+                   <th>News</th>                                                                                                          
+                   <!--<th>Date & Time</th>-->                                                                                                      
+                   </tr>";
+
+                while ($row = mysqli_fetch_array($result)) {
+
+                    echo "<tr>";
+                    echo "<td>" . $row['game_id_name'] . "</td>";
+                    echo "<td>" . $row['headline_in_news_id'] . "</td>";
+                    echo "<td>" . $row['msg_in_news_id'] . "</td>";
+                    echo "<td>" . $row['data_time'] . "</td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
 
 
-<!--<table>
-    <tr>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>CREATE A POST</th>
-        <th></th>
-        <th>EDIT/DELETE A POST</th>
-        <th></th>
-        <th>READ NEWS</th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-</table>
-<style type="text/css">
-    .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-    .tg .tg-baqh{text-align:center;vertical-align:top}
-    .tg .tg-yw4l{vertical-align:top}
-</style>
+                mysqli_close($dbc);
 
-<!--<table class="tg">
-    <tr>
-        <th class="tg-baqh"></th>
-        <th class="tg-baqh">CREATE A POST</th>
-        <th class="tg-baqh"></th>
-        <th class="tg-baqh">EDIT/DELETE A POST</th>
-        <th class="tg-baqh"></th>
-        <th class="tg-baqh">READ NEWS</th>
-        <th class="tg-baqh"></th>
-    </tr>
-</table>
-<br></br>
-<div class="container">
-<div class="row">
-<div class="row">
-    <div class="col s12">
-<form action="news.php">
-    
-    <div class="input-field col s12">
-        <select>
-            <option value="" disabled selected>Choose the Game Type</option>
-            <option value="1">XBox One</option>
-            <option value="2">PS4</option>
-            <option value="3">PC</option>
-        </select>
-        <label>Platform Select</label>
-        <select>
-            <!-- Need to tie this to the game list directly so it shows up automatically
-            <option value="" disabled selected>Choose the Game</option>
-            <option value="1">Call Of Duty</option>
-            <option value="2">Formula One</option>
-            <option value="3">FallOut 4</option>
-        </select>
-        <label>Platform Select</label>
-    </div>
-    Subject:<br>
-    <input type="text" name="headline" value=""><br>
-    Post:<br>
-    <form action="./news.php">
-            <textarea name="msg_in_iD" cols="300" rows="50" style="border:3px solid #F7730E;">
-            </textarea>
-        <br />
-    </form>
-    <input type="submit" name="submit" value="submit">
-</form>
-    </div>
-</div>
-<br> </br>
-</div>
+                ?>
 
-</div>
-</div>
+            </div>
+        </div>
+
+
 
 <?php
 include('includes/templates/footer.php');

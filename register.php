@@ -8,7 +8,7 @@ include('includes/helpers/Formatter.php');
 $options["center"] = true;
 $options["valign"] = true;
 
-require_once        ('includes/functions/mysqli_connect.php'); // Connect to the db.
+require_once ('includes/functions/mysqli_connect.php'); // Connect to the db.
 
 // Check if the form has been submitted:
 if (isset($_POST['submitted'])) {
