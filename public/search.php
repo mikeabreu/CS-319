@@ -6,7 +6,18 @@ if (!$session->is_logged_in()) {
 }
 $show_results = false;
 $admin_view = $session->is_admin();
-$current_game;
+
+$page_title = 'Search';
+$wrapper_class = 'search-view';
+include(TEMPLATE_PATH . DS . 'header.php');
+
+if (isset($_GET['delete_row'])) {
+    if (isset($_GET['tag_id']) && !empty($_GET['tag_id'])) {
+        $tag_to_delete = Tag::find_by_id($_GET['tag_id']);
+        Tag::delete($tag_to_delete);
+        $output = "Tag deleted";
+    }
+}
 
 if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
     $query = $db->escape_value(trim($_GET["search-query"]));
@@ -14,8 +25,6 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
     if ($games) {
         $results = "<ul class=\"collection\">";
         foreach ($games as $game) {
-            $current_game = $game;
-            echo print_r($current_game);
             $results .= "<li class=\"collection-item\">";
             $results .= "<div class=\"row valign-wrapper\">";
             $results .= "<div class=\"col s1 valign\">";
@@ -34,8 +43,14 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
             $results .= "<h6>" . $game->description . "</h6>";
             $results .= "</div>";
             if ($admin_view) {
-                $results .= "<div class=\"col s1 valign\">";
-                $results .= "<a class=\"modal-trigger waves-effect waves-light btn green lighten-1\" href=\"#edit-modal\">Edit Tags</a>";
+                $results .= "<div class=\"row\">";
+                $results .= "<div class=\"col s12\">";
+                $results .= "<form class=\"form\" action=\"search.php\" method=\"get\">";
+                $results .= "<input type=\"hidden\" name=\"game_id\" value=\"" . $game->id . "\">";
+                // $results .= "<input type=\"submit\" name=\"edit_row\" value=\"true\" class=\"btn green\">";
+                $results .= "<button class=\"btn waves-effect waves-light green lighten-1\" type=\"submit\" name=\"edit_row\" value=\"true\">Edit<i class=\"material-icons right\">edit</i></button>";
+                $results .= "</form>";
+                $results .= "</div>";
                 $results .= "</div>";
             }
             $results .= "</div>";
@@ -46,66 +61,59 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
     }
 }
 
-if (isset($_POST['addTag'])) {
-    if (empty($_POST['tag_name'])) {
-        echo "Please enter a tag name before submitting.";
+if (isset($_GET['addTag'])) {
+    if (empty($_GET['tag_name'])) {
+        redirect_to($_GET['previous']);
     } else {
         $new_tag = new Tag();
-        $new_tag->game_id   =   $_POST['game_id'];
-        $new_tag->tag_name  =   $db->escape_value(trim($_POST['tag_name']));
+        $new_tag->game_id   =   $_GET['game_id'];
+        $new_tag->tag_name  =   $db->escape_value(trim($_GET['tag_name']));
         Tag::save($new_tag);
+        redirect_to($_GET['previous']);
     }
 }
 
-$page_title = 'Search';
-$wrapper_class = 'search-view';
-include(TEMPLATE_PATH . DS . 'header.php');
-
-?>
-
-<?php if ($admin_view) { ?>
-    <!-- Edit Modal -->
-    <div class="row">
-        <div id="edit-modal" class="modal">
-            <div class="modal-content container">
-                <div class="row">
-                    <h4>Edit Search Tags</h4>
-                    <?php
-                    echo "<br />" . print_r($current_game);
-                    $tags = Tag::find_all_by_game_id($current_game->id);
-                    $tag_list  = "<ul class=\"collection with-header\">";
-                    $tag_list .= "<li class=\"collection-header\"><h5>All Tags</h5></li>";
-                    if ($tags) {
-                        foreach($tags as $tag) {
-                            $tag_list .= "<li class=\"collection-item\"><div>" . $tag->tag_name . "<a href=\"#!\" class=\"secondary-content\"><i class=\"material-icons red-text\">delete</i></a></div></li>";
-                        }
-                    }
-                    $tag_list .= "</ul>";
-                    ?>
-                </div>
-
-                <div class="row">
-                    <form class="form" name="add-tag-form" action="search.php" method="POST">
-                        <div class="col s9">
-                            <input id="add_search_tag" type="text" class="validate" name="tag_name">
-                            <label class="active" for="add_search_tag">Add Search Tag</label>
-                        </div>
-                        <div class="col s1">
-                            <input type="hidden" name="game_id" value="<?php $current_game->id ?>">
-                            <button class="btn waves-effect waves-light green lighten-1" type="submit" name="addTag">Submit
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+if (isset($_GET['edit_row'])) {
+    if (!empty($_GET['game_id'])) {
+        $current_game = Game::find_by_id($_GET['game_id']);
+        ?>
+        <div class="center-align">
+            <h4>Edit Search Tags</h4>
+            <?php
+            $tags = Tag::find_all_by_game_id($current_game->id);
+            $tag_list  = "<div class=\"row\"><div class=\"col s10 offset-s1\"><ul class=\"collection with-header\">";
+            $tag_list .= "<li class=\"collection-header\"><h5>All Tags</h5></li>";
+            if ($tags) {
+                foreach($tags as $tag) {
+                    $tag_list .= "<li class=\"collection-item\"><div>" . $tag->tag_name . "<a href=\"search.php?game_id=".$_GET['game_id']."&edit_row=true&tag_id=".$tag->id."&delete_row=true\" class=\"secondary-content\"><i class=\"material-icons red-text\">delete</i></a></div></li>";
+                }
+            }
+            $tag_list .= "</ul></div></div>";
+            echo $tag_list;
+            ?>
+            <div class="row">
+                <form class="form" action="search.php" method="get">
+                    <div class="col s9 offset-s1">
+                        <input id="add_search_tag" type="text" class="validate" name="tag_name">
+                        <label class="active" for="add_search_tag">Add Search Tag</label>
+                    </div>
+                    <div class="col s1">
+                        <input type="hidden" name="previous" value="<?php echo "search.php?game_id=".$_GET['game_id']."&edit_row=true"; ?>">
+                        <input type="hidden" name="game_id" value="<?php echo $_GET['game_id']; ?>">
+                        <button class="btn waves-effect waves-light green lighten-1" type="submit" name="addTag" value="true">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-<?php } ?>
+
+        <?php include_once(TEMPLATE_PATH . DS . "footer.php");
+        exit();
+    }
+}
+
+?>
 
 <!-- Page Title -->
 <div class="row">
@@ -123,7 +131,7 @@ include(TEMPLATE_PATH . DS . 'header.php');
             <label for="icon_prefix">Search</label>
         </div>
         <div class="input-field col s1">
-            <button class="btn waves-effect waves-light green lighten-1" type="submit" name="action">Submit
+            <button class="btn waves-effect waves-light green lighten-1" type="submit">Submit
                 <i class="material-icons right">send</i>
             </button>
         </div>

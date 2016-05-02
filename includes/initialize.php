@@ -2,8 +2,9 @@
 
 // Path Constants
 defined('DS') ? NULL : define('DS', DIRECTORY_SEPARATOR);
-defined('SITE_ROOT') ? NULL : define('SITE_ROOT', DS . 'opt' . DS . 'lampp' . DS . 'htdocs' . DS . 'CS-319');
+// defined('SITE_ROOT') ? NULL : define('SITE_ROOT', DS . 'opt' . DS . 'lampp' . DS . 'htdocs' . DS . 'CS-319');
 // defined('SITE_ROOT') ? NULL : define('SITE_ROOT', 'D:' . DS . 'home' . DS . 'server' . DS . 'xampp' . DS . 'htdocs' . DS . 'CS-319');
+defined('SITE_ROOT') ? NULL : define('SITE_ROOT', DS . 'home' . DS . 'fses16g1' . DS . 'public_html');
 defined('LIB_PATH') ? NULL : define('LIB_PATH', SITE_ROOT . DS . 'includes');
 defined('TEMPLATE_PATH') ? NULL : define('TEMPLATE_PATH', LIB_PATH . DS . 'templates');
 
@@ -27,6 +28,7 @@ require_once LIB_PATH . DS . 'class' . DS . 'Session.php';
 require_once LIB_PATH . DS . 'class' . DS . 'User.php';
 require_once LIB_PATH . DS . 'class' . DS . 'Game.php';
 require_once LIB_PATH . DS . 'class' . DS . 'Tag.php';
+require_once LIB_PATH . DS . 'class' . DS . 'Article.php';
 
 
 global $session;

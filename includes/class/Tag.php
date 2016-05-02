@@ -25,7 +25,7 @@ class Tag extends DatabaseObject
     public static function find_all_by_game_id($id = "")
     {
         global $db;
-        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE game_id = '{$id}' LIMIT 1");
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE game_id = '{$id}'");
         return !empty($result_array) ? $result_array : false;
     }
 }

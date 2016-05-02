@@ -8,42 +8,42 @@ $admin_view = $session->is_admin();
 $page_title = 'Game Catalog';
 include(TEMPLATE_PATH . DS . 'header.php');
 
-if (isset($_POST['submitted'])) {
+if (isset($_GET['submitted'])) {
     $errors = array();
 
     // Check if game name was submitted.
-    if (empty($_POST['game_name'])) {
+    if (empty($_GET['game_name'])) {
         $errors[] = "Please enter a game name.";
     } else {
-        $clean_name = $db->escape_value(trim($_POST['game_name']));
+        $clean_name = $db->escape_value(trim($_GET['game_name']));
     }
 
     // Check if platform was submitted.
-    if (empty($_POST['platform'])) {
+    if (empty($_GET['platform'])) {
         $errors[] = "Please enter a platform.";
     } else {
-        $clean_platform = $db->escape_value(trim($_POST['platform']));
+        $clean_platform = $db->escape_value(trim($_GET['platform']));
     }
 
     // Check if genre was submitted.
-    if (empty($_POST['genre'])) {
+    if (empty($_GET['genre'])) {
         $errors[] = "Please enter a genre.";
     } else {
-        $clean_genre = $db->escape_value(trim($_POST['genre']));
+        $clean_genre = $db->escape_value(trim($_GET['genre']));
     }
 
     // Check if description was submitted.
-    if (empty($_POST['description'])) {
+    if (empty($_GET['description'])) {
         $errors[] = "Please enter a description.";
     } else {
-        $clean_description = $db->escape_value(trim($_POST['description']));
+        $clean_description = $db->escape_value(trim($_GET['description']));
     }
 
     // Check if image was submitted.
-    if (empty($_POST['image'])) {
+    if (empty($_GET['image'])) {
         $errors[] = "Please enter an image url.";
     } else {
-        $clean_image = $db->escape_value(trim($_POST['image']));
+        $clean_image = $db->escape_value(trim($_GET['image']));
     }
 
     if (empty($errors)) {
@@ -73,6 +73,72 @@ if (isset($_POST['submitted'])) {
     }
 }
 
+if (isset($_GET["update_game"])) {
+    $game = Game::find_by_id($_GET['game_id']);
+    $game->game_name    =   strtolower($db->escape_value(trim($_GET['new_game_name'])));
+    $game->platform     =   $db->escape_value(trim($_GET['new_platform']));
+    $game->genre        =   $db->escape_value(trim($_GET['new_genre']));
+    $game->description  =   $db->escape_value(trim($_GET['new_description']));
+    $game->image        =   $db->escape_value(trim($_GET['new_image']));
+    Game::save($game);
+}
+
+if (isset($_GET["edit_row"])) {
+    $id = $_GET["game_id"];
+    $game = Game::find_by_id($id);
+    ?>
+    <div class="center-align">
+        <h4>Edit Game</h4>
+        <div class="row">
+            <form class="form" action="catalog.php" method="get">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" class="" required autofocus name="new_game_name" maxlength="40"
+                               value="<?php echo $game->game_name; ?>"/>
+                        <label for="new_game_name">Game Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" class="" required name="new_platform" maxlength="40"
+                               value="<?php echo $game->platform; ?>"/>
+                        <label for="new_platform">Platform</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" class="" required name="new_genre" maxlength="40"
+                               value="<?php echo $game->genre; ?>"/>
+                        <label for="new_genre">Genre</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" class="" required name="new_description"
+                               value="<?php echo $game->description; ?>"/>
+                        <label for="new_description">Description</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" class="" required name="new_image"
+                               value="<?php echo $game->image; ?>"/>
+                        <label for="new_image">Image URL</label>
+                    </div>
+                </div>
+                <div class="col s1">
+                    <input type="hidden" name="previous" value="<?php echo "catalog.php?game_id=".$id."&edit_row=Edit"; ?>">
+                    <input type="hidden" name="game_id" value="<?php echo $id; ?>">
+                    <button class="btn waves-effect waves-light green lighten-1" type="submit" name="update_game" value="true">Update
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <?php include_once(TEMPLATE_PATH . DS . "footer.php");
+    exit();
+}
+
+if (isset($_GET["delete_row"])) {
+    $id = $_GET["game_id"];
+    $game_to_delete = Game::find_by_id($id);
+    Game::delete($game_to_delete);
+}
+
 ?>
 <?php if ($admin_view) { ?>
     <!-- Edit Modal -->
@@ -81,31 +147,26 @@ if (isset($_POST['submitted'])) {
             <div class="modal-content container">
                 <div class="row">
                     <h4>Fill out the form to add your game.</h4>
-                    <form class="form" role="form" action="catalog.php" method="post">
+                    <form class="form" role="form" action="catalog.php" method="get">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input type="text" class="" required autofocus name="game_name" maxlength="40"
-                                       value="<?php if (isset($_POST['game_name'])) echo $_POST['game_name']; ?>"/>
+                                <input type="text" class="" required autofocus name="game_name" maxlength="40"/>
                                 <label for="game_name">Game Name</label>
                             </div>
                             <div class="input-field col s12">
-                                <input type="text" class="" required name="platform" maxlength="40"
-                                       value="<?php if (isset($_POST['platform'])) echo $_POST['platform']; ?>"/>
+                                <input type="text" class="" required name="platform" maxlength="40"/>
                                 <label for="platform">Platform</label>
                             </div>
                             <div class="input-field col s12">
-                                <input type="text" class="" required name="genre" maxlength="40"
-                                       value="<?php if (isset($_POST['genre'])) echo $_POST['genre']; ?>"/>
+                                <input type="text" class="" required name="genre" maxlength="40"/>
                                 <label for="genre">Genre</label>
                             </div>
                             <div class="input-field col s12">
-                                <input type="text" class="" required name="description"
-                                       value="<?php if (isset($_POST['description'])) echo $_POST['description']; ?>"/>
+                                <input type="text" class="" required name="description"/>
                                 <label for="description">Description</label>
                             </div>
                             <div class="input-field col s12">
-                                <input type="text" class="" required name="image"
-                                       value="<?php if (isset($_POST['image'])) echo $_POST['image']; ?>"/>
+                                <input type="text" class="" required name="image"/>
                                 <label for="image">Image URL</label>
                             </div>
                             <div class="input-field col s12">
@@ -131,7 +192,7 @@ if (isset($_POST['submitted'])) {
         <?php if ($admin_view) { ?>
             <div class="center-align">
                 <h4>Admin Options</h4>
-                <a class="modal-trigger waves-effect waves-light btn green lighten-1" href="#add-modal">Add Game</a>
+                <a class="modal-trigger waves-effect waves-light btn blue lighten-1" href="#add-modal">Add Game</a>
             </div>
         <?php } ?>
         <div class="row">
@@ -158,6 +219,17 @@ if (isset($_POST['submitted'])) {
                                 <h6><?php echo $game->description; ?></h6>
                             </div>
                         </div>
+                        <?php if ($admin_view) { ?>
+                            <div class="row">
+                                <div class="col s12">
+                                    <form class="form" action="catalog.php" method="get">
+                                        <input type="hidden" name="game_id" value="<?php echo $game->id; ?>">
+                                        <input type="submit" name="edit_row" value="Edit" class="btn green">
+                                        <input type="submit" name="delete_row" value="Delete" class="btn red">
+                                    </form>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </li>
                 <?php } ?>
                 </ul>
