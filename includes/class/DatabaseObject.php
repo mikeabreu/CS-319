@@ -177,7 +177,7 @@ class DatabaseObject
                 $attributes[$field] = $this->$field;
             }
         }
-        echo 'Attributes: ' . print_r($attributes);
+        // echo 'Attributes: ' . print_r($attributes);
         return $attributes;
     }
 

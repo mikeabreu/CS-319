@@ -19,7 +19,7 @@ if (isset($_POST['submitted'])) {
         if ($found_user) {
             # Success
             $session->login($found_user);
-            redirect_to("index.php");
+            // redirect_to("index.php");
         }
         else {
             # Failure
