@@ -38,7 +38,6 @@ class User extends DatabaseObject
         $username = $db->escape_value($username);
         $input_password = $db->escape_value($input_password);
         $user = self::find_by_username($username);
-        // $log->log_action("User search result: ", print_r($user));
         if (isset($user) && is_object($user)) {
             if (self::check_password($input_password, $user->password)) {
                 return $user;
@@ -55,7 +54,6 @@ class User extends DatabaseObject
     {
         $hash = crypt($password, $existing_hash);
         $hash = substr($hash, 0, 40);
-        // echo "<h4>{$hash} === {$existing_hash}</h4>";
         if ($hash === $existing_hash) {
             return true;
         }
@@ -70,7 +68,6 @@ class User extends DatabaseObject
         $salt = self::generate_salt($salt_length);
         $format_and_salt = $hash_format . $salt;
         $hash = crypt($password, $format_and_salt);
-        // echo "Hash: " . print_r($hash);
         return $hash;
     }
 

@@ -1,11 +1,10 @@
 <?php # Script 8.7 - password.php
 require_once "../includes/initialize.php";
-if (!$session->is_logged_in) {
+if (!$session->is_logged_in()) {
     redirect_to("login.php");
 }
 
 // This page lets a user change their password.
-
 $page_title = 'Change Your Password';
 include(TEMPLATE_PATH . DS . 'header.php');
 
@@ -78,14 +77,18 @@ if (isset($_POST['submitted'])) {
 } // End of if (empty($errors)) IF.
 ?>
 
-<form class="form-signin" role="form" action="password.php" method="post">
-    <h2 class="form-signin-heading">Change Your Password</h2>
-    <input type="password" class="form-control" placeholder="Current Password" required name="password">
-    <input type="password" class="form-control" placeholder="New Password" required name="password1">
-    <input type="password" class="form-control" placeholder="New Password" required name="password2">
-    <button class="btn btn-sm btn-primary" type="submit" name="submit">Change Password</button>
-    <input type="hidden" name="submitted" value="TRUE"/>
-</form>
+<div class="row">
+    <div class="col s10 offset-s1">
+        <form class="" role="form" action="password.php" method="post">
+            <h2 class="center-align">Change Your Password</h2>
+            <input type="password" class="form-control" placeholder="Current Password" required name="password">
+            <input type="password" class="form-control" placeholder="New Password" required name="password1">
+            <input type="password" class="form-control" placeholder="New Password" required name="password2">
+            <button class="btn btn-sm btn-primary" type="submit" name="submit">Change Password</button>
+            <input type="hidden" name="submitted" value="TRUE"/>
+        </form>
+    </div>
+</div>
 
 <?php
 include(TEMPLATE_PATH . DS . 'footer.php');

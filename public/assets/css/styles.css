@@ -128,3 +128,8 @@ form label {
     width: 100%;
     max-width: 750px;
 }
+
+.boxart {
+    width: 100%;
+    max-width: 100px;
+}

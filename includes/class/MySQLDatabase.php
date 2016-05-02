@@ -42,7 +42,7 @@ class MySQLDatabase
     }
 
     # Query to the DB
-    public function query($sql)
+    public function query($sql, $public = false)
     {
         global $log;
         $this->last_query = $sql;
@@ -81,12 +81,14 @@ class MySQLDatabase
     }
 
     # Confirm Query
-    private function confirm_query($result, $public = false)
+    private function confirm_query($result, $public = true)
     {
         if (!$result) {
             if ($public) {
                 // Add Message to SESSION
-
+                $output  = "<h4>Internal Server Error 500</h4>";
+                $output .= "<p>There was a problem on the server. Exiting.</p>";
+                redirect_to("index.php");
                 // Redirect to index.php
 
             } else {

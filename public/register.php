@@ -57,11 +57,19 @@ if (isset($_POST['submitted'])) {
         $errors[] = 'You forgot to enter your password.';
     }
 
+    // Check if username already exists
+    $found_user = User::find_by_username($db->escape_value($_POST['email']));
+
+    if ($found_user) {
+        $errors[] = 'The username you entered already exists. Try again.';
+    }
+
     if (empty($errors)) { // If everything's OK.
+
         // Save user
         $_SESSION['username'] = $db->escape_value($_POST['email']);
         $user = new User();
-        $user->user_type_id         =   $db->escape_value($_POST['type_id']);
+        $user->user_type_id =   $db->escape_value($_POST['type_id']);
         $user->username     =   $db->escape_value($_POST['email']);
         $user->password     =   $user->password_encrypt($_POST['password']);
         $user->first_name   =   $db->escape_value($_POST['first_name']);
