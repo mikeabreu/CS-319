@@ -35,7 +35,15 @@ if (isset($_POST['submitted'])) {
     if (empty($_POST['email'])) {
         $errors[] = 'You forgot to enter your email address.';
     } else {
-        $e = $db->escape_value(trim($_POST['email']));
+        $e = $_POST['email'];
+        // Validate the email address
+        if (!filter_var($e, FILTER_VALIDATE_EMAIL)) {
+            // Invalid email
+            $errors[] = 'You entered an invalid email address.';
+        } else {
+            // Valid email
+            $e = $db->escape_value(trim($_POST['email']));
+        }
     }
 
     // Check for a password and match against the confirmed password:
