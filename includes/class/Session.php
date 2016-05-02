@@ -5,6 +5,7 @@ class Session
     ## 	Attributes
     public $user_id;
     public $username;
+    public $user_type;
     private $logged_in;
 
 
@@ -29,6 +30,15 @@ class Session
         return $this->logged_in;
     }
 
+    # Check if user is an admin
+    public function is_admin() {
+        if ($_SESSION['user_type'] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     # Login the user to the session.
     public function login($user)
     {
@@ -40,8 +50,9 @@ class Session
             $this->user_id = $user->id;
             $_SESSION['username'] = $user->username;
             $this->username = $user->username;
-            echo print_r($_SESSION);
-            $log->log_action('LOGIN', ("'" . $user->username . "' has logged in."));
+            $_SESSION['user_type'] = $user->user_type_id;
+            $this->user_type = $user->user_type_id;
+            $log->log_action('LOGIN', ("'" . $user->username . "' has logged in with priv level of " . $this->user_type));
             $this->logged_in = true;
         } else {
             // Fail
@@ -58,6 +69,8 @@ class Session
         unset($this->user_id);
         unset($_SESSION['username']);
         unset($this->username);
+        unset($_SESSION['user_type']);
+        unset($this->user_type);
         $this->logged_in = false;
     }
 

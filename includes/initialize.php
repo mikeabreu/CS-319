@@ -25,6 +25,7 @@ require_once LIB_PATH . DS . 'class' . DS . 'Session.php';
 
 // Load database-related classes
 require_once LIB_PATH . DS . 'class' . DS . 'User.php';
+require_once LIB_PATH . DS . 'class' . DS . 'Game.php';
 require_once LIB_PATH . DS . 'class' . DS . 'Search.php';
 
 

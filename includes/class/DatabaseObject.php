@@ -191,7 +191,7 @@ class DatabaseObject
         foreach ($this->attributes() as $key => $value) {
             $clean_attributes[$key] = $db->escape_value($value);
         }
-        echo 'Clean Attributes: ' . print_r($clean_attributes);
+        // echo 'Clean Attributes: ' . print_r($clean_attributes);
         return $clean_attributes;
     }
 }

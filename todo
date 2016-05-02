@@ -1,0 +1,20 @@
+TODO
+
+User login
+    session not working
+    password reset
+    view all users
+
+News
+    view all news posts
+    add new post
+    edit/delete posts
+
+Game Catalog
+    view all games
+    add new game
+    edit/delete game
+
+Game Search
+    search for a game by tag or game name
+    add tag to games

@@ -1,9 +1,11 @@
 <?php
-include('includes/functions/session.php');
-include('includes/functions/functions.php');
-confirm_logged_in();
+require_once "../includes/initialize.php";
+global $session;
+if (!$session->is_logged_in()) {
+    redirect_to("login.php");
+}
 $show_results = false;
-$admin_view = false;
+$admin_view = $session->is_admin();
 
 if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
     $show_results = true;
@@ -11,7 +13,7 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
 
 $page_title = 'Search';
 $wrapper_class = 'search-view';
-include('includes/templates/header.php');
+include(TEMPLATE_PATH . DS . 'header.php');
 
 ?>
 
@@ -134,5 +136,5 @@ include('includes/templates/header.php');
 <?php } ?>
 
 <?php
-include('includes/templates/footer.php');
+include(TEMPLATE_PATH . DS . 'footer.php');
 ?>

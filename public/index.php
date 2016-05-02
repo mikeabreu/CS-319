@@ -2,12 +2,10 @@
 require_once('../includes/initialize.php');
 global $session;
 if (!$session->is_logged_in()) {
-    // redirect_to("login.php");
-    echo "User isn't logged in.";
-    echo $session->username;
+    redirect_to("login.php");
 }
 
-$page_title = 'Welcome to this Site!';
+$page_title = 'Homepage';
 include_once(TEMPLATE_PATH . DS . 'header.php');
 ?>
 

@@ -58,46 +58,23 @@ if (isset($_POST['submitted'])) {
     }
 
     if (empty($errors)) { // If everything's OK.
-//        $t = ($_POST["type_id"]);
-//        // Register the user in the database...
-//        // Make the query:
-//        $query = "INSERT INTO users (user_type_id, first_name, last_name, email, pass, registration_date) VALUES ($t, '$fn', '$ln', '$e', SHA1('$p'), NOW() )";
-//        $result = $db->query($query);
-//        if ($result) { // If it ran OK.
-            // Save user
-            $_SESSION['username'] = $db->escape_value($_POST['email']);
-            $user = new User();
-            $user->type         =   $db->escape_value($_POST['type_id']);
-            $user->username     =   $db->escape_value($_POST['email']);
-            $user->password     =   $user->password_encrypt($_POST['password']);
-            $user->first_name   =   $db->escape_value($_POST['first_name']);
-            $user->last_name    =   $db->escape_value($_POST['last_name']);
-            $user->email        =   $db->escape_value($_POST['email']);
-            User::save($user);
-            $message = "User was created!";
-            $session->login($user);
+        // Save user
+        $_SESSION['username'] = $db->escape_value($_POST['email']);
+        $user = new User();
+        $user->user_type_id         =   $db->escape_value($_POST['type_id']);
+        $user->username     =   $db->escape_value($_POST['email']);
+        $user->password     =   $user->password_encrypt($_POST['password']);
+        $user->first_name   =   $db->escape_value($_POST['first_name']);
+        $user->last_name    =   $db->escape_value($_POST['last_name']);
+        $user->email        =   $db->escape_value($_POST['email']);
+        User::save($user);
+        $message = "User was created!";
+        $session->login($user);
 
-            // Print a message:
-            $name = $_POST["first_name"] . " " . $_POST["last_name"];
-            $output_msg = '<h4>Thank you, ' . $name . '!</h4><p>You are now registered!</p><p><br /></p><a class="btn waves-effect waves-light blue" href="login.php">Login</a>';
-            echo $Formatter->format($output_msg, $options);
-
-//        } else { // If it did not run OK.
-
-            // Public message:
-//            $output_msg = '<h4>System Error</h4><p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p><a class="btn waves-effect waves-light blue" href="register.php">Register</a>';
-//            echo $Formatter->format($output_msg, $options);
-//
-//            // Debugging message:
-//            $output_msg = '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
-//            $options["card"] = true;
-//            $options["card_color"] = "red";
-//            $options["card_color_extra"] = "lighten-3";
-//            echo $Formatter->format($output_msg, $options);
-//            unset($options["card"], $options["card_color"], $options["card_color_extra"]);
-
-//        } // End of if ($r) IF.
-
+        // Print a message:
+        $name = $_POST["first_name"] . " " . $_POST["last_name"];
+        $output_msg = '<h4>Thank you, ' . $name . '!</h4><p>You are now registered!</p><p><br /></p><a class="btn waves-effect waves-light blue" href="login.php">Login</a>';
+        echo $Formatter->format($output_msg, $options);
         $db->close_connection(); // Close the database connection.
 
         // Include the footer and quit the script:
@@ -126,7 +103,7 @@ if (isset($_POST['submitted'])) {
 $types = array();
 
 // Make the query:
-$query = "SELECT user_type_id, type_name FROM user_types ORDER BY type_name ASC";
+$query = "SELECT id, type_name FROM user_types ORDER BY type_name ASC";
 
 $result = $db->query($query); // Run the query.
 
@@ -159,7 +136,7 @@ $db->close_connection(); // Close the database connection.
                     <option value="" disabled selected>Choose your option</option>
                     <?php
                     foreach ($types as $type) {
-                        echo "<option value=\"" . $type['user_type_id'] . "\">" . $type['type_name'] . "</option>\n";
+                        echo "<option value=\"" . $type['id'] . "\">" . $type['type_name'] . "</option>\n";
                     }
                     ?>
                 </select>

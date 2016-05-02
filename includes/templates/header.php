@@ -11,7 +11,9 @@ if (!isset($page_title) || empty($page_title)) {
 if (!isset($wrapper_class) || empty($wrapper_class)) {
     $wrapper_class = '';
 }
-
+if (!isset($layout) || empty($layout)) {
+    $layout = "public";
+}
 ?>
 <html lang="en">
 <head>

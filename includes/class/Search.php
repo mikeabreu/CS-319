@@ -9,6 +9,8 @@ class Search extends DatabaseObject
     */
     protected static $table_name = "search";
     protected static $db_fields = array('type_id', '', '', '', '', '', '');
+
+    
 }
 
 ?>

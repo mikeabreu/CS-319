@@ -15,12 +15,12 @@ if (isset($_POST['submitted'])) {
 
         # Check database to see if username/password exist.
         $found_user = User::authenticate($username, $password);
-        echo print_r($found_user);
+        // echo print_r($found_user);
         # Actions
         if ($found_user) {
             # Success
             $session->login($found_user);
-            // redirect_to("index.php");
+            redirect_to("index.php");
         }
         else {
             # Failure
