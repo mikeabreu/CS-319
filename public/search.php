@@ -18,11 +18,6 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
             echo print_r($current_game);
             $results .= "<li class=\"collection-item\">";
             $results .= "<div class=\"row valign-wrapper\">";
-            if ($admin_view) {
-                $results .= "<div class=\"col s1 valign\">";
-                $results .= "<a class=\"modal-trigger waves-effect waves-light btn green lighten-1\" href=\"#edit-modal". $game->id ."\">Edit Tags</a>";
-                $results .= "</div>";
-            }
             $results .= "<div class=\"col s1 valign\">";
             $results .= "<img class=\"boxart\" src=\"" . $game->image . "\" alt=\"\" />";
             $results .= "</div>";
@@ -38,6 +33,11 @@ if (isset($_GET["search-query"]) && !empty($_GET["search-query"])) {
             $results .= "<div class=\"col s4 valign\">";
             $results .= "<h6>" . $game->description . "</h6>";
             $results .= "</div>";
+            if ($admin_view) {
+                $results .= "<div class=\"col s1 valign\">";
+                $results .= "<a class=\"modal-trigger waves-effect waves-light btn green lighten-1\" href=\"#edit-modal\">Edit Tags</a>";
+                $results .= "</div>";
+            }
             $results .= "</div>";
             $results .= "</li>";
         }
