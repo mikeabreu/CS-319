@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/initialize.php';
+global $session;
 if ($session->is_logged_in()) { redirect_to("index.php"); }
 
 $page_title = 'Sign In';
@@ -14,7 +15,7 @@ if (isset($_POST['submitted'])) {
 
         # Check database to see if username/password exist.
         $found_user = User::authenticate($username, $password);
-
+        echo print_r($found_user);
         # Actions
         if ($found_user) {
             # Success
@@ -61,7 +62,7 @@ $options["col"] = 's8 offset-s2';
                            data-success="success">
                 </div>
                 <div class="input-field col s8 offset-s2 l6 offset-l3">
-                    <input type="password" class="" placeholder="Password" required name="pass" data-error="wrong"
+                    <input type="password" class="" placeholder="Password" required name="password" data-error="wrong"
                            data-success="success">
                 </div>
                 <div class="input-field col s8 offset-s2 l6 offset-l3">
@@ -72,11 +73,10 @@ $options["col"] = 's8 offset-s2';
                     <br/>
                 </div>
                 <div class="input-field col s8 offset-s2 l6 offset-l3">
-                    <button class="btn waves-effect waves-light green" type="submit" name="action">Login
+                    <button class="btn waves-effect waves-light green" type="submit" name="submit">Login
                         <i class="material-icons right">send</i>
                     </button>
                     <input type="hidden" name="submitted" value="TRUE"/>
-                    <a class="btn waves-effect waves-light blue" href="register.php">Register</a>
                 </div>
             </div>
         </form>

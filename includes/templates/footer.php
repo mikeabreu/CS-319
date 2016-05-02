@@ -39,6 +39,5 @@
 <script src="assets/js/materialize.min.js"></script>
 <!-- G3 Scripts -->
 <script src="assets/js/scripts.js" type="text/javascript" charset="utf-8"></script>
-
 </body>
 </html>

@@ -123,3 +123,8 @@ form label {
     padding: 20px 0 !important;
     min-height: 300px;
 }
+
+.underconst {
+    width: 100%;
+    max-width: 750px;
+}

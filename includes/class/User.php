@@ -7,15 +7,15 @@ class User extends DatabaseObject
         Attributes
     */
     protected static $table_name = "users";
-    protected static $db_fields = array('type_id', 'username', 'first_name', 'last_name', 'email', 'pass', 'registration_date');
+    protected static $db_fields = array('user_id', 'user_type_id', 'username', 'password', 'first_name', 'last_name', 'email');
 
-    public $id;
+    public $user_id;
     public $username;
     public $password;
     public $first_name;
     public $last_name;
     public $email;
-    public $type;
+    public $user_type_id;
 
     /*
         Methods
@@ -34,9 +34,11 @@ class User extends DatabaseObject
     public static function authenticate($username = "", $input_password = "")
     {
         global $db;
+        global $log;
         $username = $db->escape_value($username);
         $input_password = $db->escape_value($input_password);
         $user = self::find_by_username($username);
+        $log->log_action("User search result: ", print_r($user));
         if (isset($user) && is_object($user)) {
             if (self::check_password($input_password, $user->password)) {
                 return $user;
@@ -53,6 +55,7 @@ class User extends DatabaseObject
     {
         $hash = crypt($password, $existing_hash);
         $hash = substr($hash, 0, 40);
+        echo "<h4>{$hash} === {$existing_hash}</h4>";
         if ($hash === $existing_hash) {
             return true;
         }
@@ -67,6 +70,7 @@ class User extends DatabaseObject
         $salt = self::generate_salt($salt_length);
         $format_and_salt = $hash_format . $salt;
         $hash = crypt($password, $format_and_salt);
+        echo "Hash: " . print_r($hash);
         return $hash;
     }
 

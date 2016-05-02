@@ -1,7 +1,10 @@
 <?php
 require_once('../includes/initialize.php');
+global $session;
 if (!$session->is_logged_in()) {
-    redirect_to("login.php");
+    // redirect_to("login.php");
+    echo "User isn't logged in.";
+    echo $session->username;
 }
 
 $page_title = 'Welcome to this Site!';

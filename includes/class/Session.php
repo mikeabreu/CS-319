@@ -36,8 +36,11 @@ class Session
         // Database should find user based on username/password
         if ($user) {
             // Success
-            $this->user_id = $_SESSION['user_id'] = $user->id;
-            $this->username = $_SESSION['username'] = $user->username;
+            $_SESSION['user_id'] = $user->id;
+            $this->user_id = $user->id;
+            $_SESSION['username'] = $user->username;
+            $this->username = $user->username;
+            echo print_r($_SESSION);
             $log->log_action('LOGIN', ("'" . $user->username . "' has logged in."));
             $this->logged_in = true;
         } else {
